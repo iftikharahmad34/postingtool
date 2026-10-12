@@ -1,0 +1,57 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../../app/**/*.php';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+    --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji';
+
+    --color-brand-50: #f3f1ff;
+    --color-brand-100: #e9e5ff;
+    --color-brand-200: #d5ceff;
+    --color-brand-300: #b7a6ff;
+    --color-brand-400: #9474ff;
+    --color-brand-500: #7444ff;
+    --color-brand-600: #6522f6;
+    --color-brand-700: #5714d9;
+    --color-brand-800: #4812b0;
+    --color-brand-900: #3c1290;
+
+    --color-ink-950: #0b0d14;
+    --color-ink-900: #11141d;
+    --color-ink-850: #161a25;
+    --color-ink-800: #1d2230;
+    --color-ink-700: #2a3142;
+
+    --shadow-soft: 0 1px 2px rgb(16 24 40 / .04), 0 8px 24px -6px rgb(16 24 40 / .08);
+    --shadow-glow: 0 10px 30px -10px rgb(101 34 246 / .55);
+}
+
+@layer base {
+    html { -webkit-font-smoothing: antialiased; }
+    body { @apply bg-slate-50 text-slate-800 dark:bg-ink-950 dark:text-slate-200; }
+    [x-cloak] { display: none !important; }
+    ::selection { @apply bg-brand-200 text-brand-900; }
+    textarea, input, select { @apply outline-none; }
+    code { @apply rounded-md bg-slate-100 px-1.5 py-0.5 text-[0.8em] font-medium text-slate-700 dark:bg-ink-800 dark:text-slate-300; }
+}
+
+@layer components {
+    .card { @apply rounded-2xl border border-slate-200/80 bg-white shadow-soft dark:border-ink-800 dark:bg-ink-900; }
+    .input { @apply w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-800 placeholder:text-slate-400 transition focus:border-brand-400 focus:ring-4 focus:ring-brand-500/10 dark:border-ink-700 dark:bg-ink-850 dark:text-slate-100 dark:placeholder:text-slate-500; }
+    .label { @apply mb-1.5 block text-sm font-semibold text-slate-700 dark:text-slate-300; }
+    .btn { @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition active:scale-[.98] disabled:pointer-events-none disabled:opacity-60; }
+    .btn-primary { @apply bg-linear-to-br from-brand-500 to-brand-700 text-white shadow-glow hover:from-brand-600 hover:to-brand-800; }
+    .btn-secondary { @apply border border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50 dark:border-ink-700 dark:bg-ink-850 dark:text-slate-200 dark:hover:bg-ink-800; }
+    .btn-ghost { @apply text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-ink-800; }
+    .chip { @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold; }
+    .nav-link { @apply flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-500 transition hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-ink-800 dark:hover:text-white; }
+    .nav-link.active { @apply bg-brand-50 text-brand-700 dark:bg-brand-500/15 dark:text-brand-300; }
+    .prose-guide a { @apply font-semibold text-brand-600 underline decoration-brand-300 underline-offset-2 dark:text-brand-400; }
+}
+
+@keyframes pop-in { from { opacity: 0; transform: translateY(8px) scale(.98); } to { opacity: 1; transform: none; } }
+.animate-pop { animation: pop-in .25s ease-out both; }

@@ -1,0 +1,13 @@
+---
+# cPanel "Git Version Control" deployment.
+# Runs from the repository directory after "Pull or Deploy → Deploy HEAD Commit".
+# The subdomain's document root must point at <repo>/public, so nothing is copied.
+deployment:
+  tasks:
+    - export COMPOSER_ALLOW_SUPERUSER=1
+    - (command -v composer >/dev/null && composer install --no-dev --optimize-autoloader --no-interaction) || /opt/cpanel/composer/bin/composer install --no-dev --optimize-autoloader --no-interaction
+    - php artisan migrate --force
+    - php artisan storage:link || true
+    - php artisan config:cache
+    - php artisan route:cache
+    - php artisan view:cache
