@@ -6,11 +6,13 @@ use App\Livewire\Auth\Setup;
 use App\Livewire\Compose;
 use App\Livewire\Dashboard;
 use App\Livewire\History;
-use App\Livewire\Ideas;
 use App\Livewire\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+
+Route::view('/privacy', 'legal.privacy')->name('privacy');
+Route::view('/terms', 'legal.terms')->name('terms');
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', Login::class)->name('login');
