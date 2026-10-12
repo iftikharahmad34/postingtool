@@ -58,14 +58,16 @@ jobs:
             --header "Authorization: cpanel ${CPANEL_USERNAME}:${CPANEL_API_TOKEN}" \
             --data-urlencode "repository_root=${CPANEL_REPO_ROOT}" \
             --data-urlencode "branch=main" \
-            "https://${CPANEL_HOST}:2083/execute/VersionControl/update" | tee update.json
+            "https://${CPANEL_HOST}:2083/execute/VersionControl/update" > update.json
+          # The repository is public, so only the outcome is printed, never the server details in the reply.
           jq -e '.status == 1' update.json > /dev/null || { echo "::error::cPanel could not pull: $(jq -r '.errors | join("; ")' update.json)"; exit 1; }
+          echo "cPanel pulled main (commit $(jq -r '.data.last_update.identifier // "unknown"' update.json | cut -c1-7))."
 
       - name: Deploy HEAD commit on cPanel
         run: |
           curl --fail --silent --show-error --get \
             --header "Authorization: cpanel ${CPANEL_USERNAME}:${CPANEL_API_TOKEN}" \
             --data-urlencode "repository_root=${CPANEL_REPO_ROOT}" \
-            "https://${CPANEL_HOST}:2083/execute/VersionControlDeployment/create" | tee deploy.json
+            "https://${CPANEL_HOST}:2083/execute/VersionControlDeployment/create" > deploy.json
           jq -e '.status == 1' deploy.json > /dev/null || { echo "::error::cPanel could not deploy: $(jq -r '.errors | join("; ")' deploy.json)"; exit 1; }
           echo "Deployment queued on cPanel. The tasks in .cpanel.yml run there (composer install, migrate, caches)."
