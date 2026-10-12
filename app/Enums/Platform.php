@@ -109,7 +109,8 @@ enum Platform: string
     {
         return match ($this) {
             self::Facebook => [
-                'Open <a href="https://developers.facebook.com/apps" target="_blank">developers.facebook.com/apps</a> → <b>Create App</b> → <b>Other → Business</b>. It can stay in Development mode for pages you manage.',
+                'Open <a href="https://developers.facebook.com/apps" target="_blank">developers.facebook.com/apps</a> → <b>Create App</b> → <b>Other → Business</b>.',
+                'Switch the app to <b>Live</b> (the <b>App Mode</b> toggle at the top of the dashboard; it asks for a Privacy Policy URL under <b>App settings → Basic</b>). In Development mode, posts published through the API — especially ones with a picture — are visible only to people with a role on the app; other visitors do not see them on the Page.',
                 'From <b>App settings → Basic</b> copy the <b>App ID</b> and <b>App Secret</b> into Quick connect below.',
                 'In the <a href="https://developers.facebook.com/tools/explorer/" target="_blank">Graph API Explorer</a> pick your app → <b>User Token</b> → add <code>pages_show_list</code> <code>pages_read_engagement</code> <code>pages_manage_posts</code> <code>business_management</code> <code>instagram_basic</code> <code>instagram_content_publish</code> → <b>Generate Access Token</b>.',
                 'Paste the token, press <b>Find my pages</b> and choose your page. Instagram is connected automatically if it is linked to that page.',
