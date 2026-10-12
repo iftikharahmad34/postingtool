@@ -30,7 +30,7 @@ class ExampleTest extends TestCase
     public function test_x_length_and_shortening(): void
     {
         $this->assertSame(23 + 6, TwitterPublisher::weightedLength('hello https://example.com/a/very/long/path'));
-        $this->assertSame(280, mb_strlen(TwitterPublisher::fit(str_repeat('a', 400))));
+        $this->assertSame(280, TwitterPublisher::weightedLength(TwitterPublisher::fit(str_repeat('a', 400))));
     }
 
     public function test_linkedin_text_is_escaped_and_hashtags_kept(): void
